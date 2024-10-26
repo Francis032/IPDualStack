@@ -2358,7 +2358,7 @@ routed: in this case, ISP1 and ISP3 will tell R1 to use ISP2 a lot!!!
 @ISP1
 	config t
 		route-map ASPATH permit 10
-			set as-path prepend 45 45 45 45 45
+			set as-path prepend 45 45 45 45 45                           ! pang pahaba ng AS Path route para hindi sya yung maging preferred route
 			exit
 		router bgp 45
 			neighbor 208.8.8.1 route-map ASPATH OUT
@@ -2635,8 +2635,8 @@ MED: multi exit discrimator is another path selection
 			set metric 69
 			set as-path prepend 45 45
 		route-map MEDnotISP1 permit 20
-		router bgp 45
-			neigh 208.8.8.1 route-map MEDnotISP1 out
+		router bgp 450
+			neigh 208.8.8.1 route-map MEDnotISP1 out                 ! IP 55 and 44 will not pass here
 			do clear ip bgp * soft
 			end
 
@@ -2660,7 +2660,7 @@ MED: multi exit discrimator is another path selection
 		no access-list 2 permit host 55.55.55.55
 		no access-list 3 permit host 44.44.44.44
 		no route-map MEDnotISP1
-		router bgp 45
+		router bgp 450
 			no neigh 208.8.8.1 route-map MEDnotISP1 out
 			do clear ip bgp * soft
 			end
